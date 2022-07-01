@@ -1,4 +1,8 @@
 import logo from './logo.svg';
+import * as React from 'react';
+
+const title = 'React'
+
 import './App.css';
 
 function App() {
