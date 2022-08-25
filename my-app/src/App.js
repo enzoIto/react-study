@@ -28,9 +28,7 @@ function Search() {
   );
 }
 
-const list = [... ];
-
-function App() { ... }
+const list = [ ... ];
 
 function List() {
   return (
@@ -50,5 +48,7 @@ function List() {
     </ul>
   );
 }
+
+
 
 export default App;
