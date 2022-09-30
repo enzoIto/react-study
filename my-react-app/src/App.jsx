@@ -20,45 +20,50 @@ const App = () => {
     },
   ];
 
+  const handleSearch = (event) => {
+    console.log(event.target.value);
+  };
+
   return (
-        <div>
-          <h1>My Hacker Stories</h1>
+    <div>
+      <h1>My Hacker Stories</h1>
 
-    # leanpub-start-insert
-          <Search />
-    # leanpub-end-insert
+      <Search onSearch={handleSearch} />
 
-          <hr />
+      <hr />
 
-          <List list={stories} />
-        </div>
-      );
+      <List list={stories} />
+    </div>
+  );
 };
 
-const Search = () => {
+const Search = (props) => {
+  const [searchTerm, setSearchTerm] = React.useState('');
 
   const handleChange = (event) => {
-    // synthetic event
-    console.log(event);
-    // value of target (here: element)
-    console.log(event.target.value);
+    setSearchTerm(event.target.value);
 
+    props.onSearch(event);
   };
 
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input id='search' type='text' onChange={handleChange} />
+      <input id="search" type="text" onChange={handleChange} />
+
+      <p>
+        Searching for <strong>{searchTerm}</strong>.
+      </p>
     </div>
   );
 };
 
 const List = (props) => (
-    <ul>
-      {props.list.map((item) => (
-        <Item key={item.objectID} item{...item} />
-      ))}
-    </ul>
+  <ul>
+    {props.list.map((item) => (
+      <Item key={item.objectID} item={item} />
+    ))}
+  </ul>
 );
 
 const Item = (props) => (
@@ -73,4 +78,3 @@ const Item = (props) => (
 );
 
 export default App;
-
