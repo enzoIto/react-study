@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 
 const App = () => {
   const stories = [
@@ -20,7 +21,13 @@ const App = () => {
     },
   ];
 
-  const [searchTerm, setSearchTerm] = React.useState('React');
+  const [searchTerm, setSearchTerm] = React.useState(
+    localStorage.getItem('search') || 'React'
+  );
+
+  useEffect(() => {
+    localStorage.setItem('search', searchTerm);
+  }, [searchTerm]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -36,7 +43,7 @@ const App = () => {
 
       <Search search={searchTerm} onSearch={handleSearch} />
 
-      <hr />
+       <hr />
 
       <List list={searchedStories} />
     </div>
