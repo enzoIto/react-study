@@ -14,28 +14,17 @@ const useStorageState = (key, initialState) => {
 };
 
 const App = () => {
-  const initialStories = [
-    {
-      title: 'React',
-      url: 'https://reactjs.org/',
-      author: 'Jordan Walke',
-      num_comments: 3,
-      points: 4,
-      objectID: 0,
-    },
-    {
-      title: 'Redux',
-      url: 'https://redux.js.org/',
-      author: 'Dan Abramov, Andrew Clark',
-      num_comments: 2,
-      points: 5,
-      objectID: 1,
-    },
-  ];
+  const [stories, setStories] = useState([]);
+
+  useEffect(() => {
+    getAsyncStories().then(result => {
+      setStories(result.data.stories);
+    });
+  });
+
+  const getAsyncStories = () => Promise.resolve({ data: { stories: initialStories } });
 
   const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
-
-  const [stories, setStories] = useState(initialStories)
 
   const handleRemoveStory = (item) => {
     const newStories = stories.filter(
