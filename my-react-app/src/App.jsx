@@ -15,12 +15,19 @@ const useStorageState = (key, initialState) => {
 
 const App = () => {
   const [stories, setStories] = useState([]);
+  
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    
+    setIsLoading(true);
+    
     getAsyncStories().then(result => {
       setStories(result.data.stories);
+      
+      setIsLoading(false);
     });
-  });
+  }, []);
 
   const getAsyncStories = () => Promise.resolve({ data: { stories: initialStories } });
 
@@ -61,8 +68,14 @@ const App = () => {
       </InputWithLabel>
 
       <hr />
-
-      <List list={searchedStories} onRemoveItem={handleRemoveStory} />
+      {isLoading ? (
+        <p>Loading ...</p>
+      ) : (
+      <List 
+  list={searchedStories} 
+  onRemoveItem={handleRemoveStory} 
+      />
+    )}
     </div>
   );
 };
