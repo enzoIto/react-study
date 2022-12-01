@@ -91,7 +91,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>My Hacker Stories</h1>
+      <h1>Enzo's stories</h1>
 
       <InputWithLabel
         id="search"
